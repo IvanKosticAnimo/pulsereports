@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Oodie - Weekly Performance Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6ff;--bg-warm:#efeaff;--surface:#ffffff;--border:#e0d8f0;--border-light:#ede8f8;--text:#2d1b4e;--text-soft:#5c4a7a;--text-muted:#8a7aaa;--purple:#7c3aed;--purple-light:#ede9fe;--purple-dark:#5b21b6;--purple-bg:rgba(124,58,237,0.06);--purple-border:rgba(124,58,237,0.15);--coral:#f97066;--coral-bg:rgba(249,112,102,0.06);--sky:#38bdf8;--sky-bg:rgba(56,189,248,0.06);--mint:#34d399;--mint-bg:rgba(52,211,153,0.06);--amber:#f59e0b;--amber-bg:rgba(245,158,11,0.06)}
+*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:920px;margin:0 auto;padding:0 28px}
+.brand-bar{background:var(--purple);color:#fff;text-align:center;padding:10px;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;border-radius:0 0 12px 12px;max-width:920px;margin:0 auto}
+.header{padding:48px 0 32px;text-align:center;border-bottom:2px solid var(--purple);margin-bottom:40px}
+.header .logo{font-family:'Fraunces',serif;font-size:16px;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px}
+.header h1{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:400;line-height:1.15;margin-bottom:8px}
+.header h1 em{font-style:italic;color:var(--purple)}
+.header .period{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);background:var(--purple-light);padding:6px 16px;border-radius:20px;display:inline-block;margin-top:8px}
+.exec{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:36px;position:relative;overflow:hidden}
+.exec::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),var(--coral),var(--sky))}
+.exec h2{font-family:'Fraunces',serif;font-size:18px;margin-bottom:10px;color:var(--purple)}
+.exec p{font-size:14px;color:var(--text-soft);line-height:1.85}
+.exec strong{color:var(--text);font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:40px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;text-align:center}
+.kpi-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;font-weight:700}
+.kpi-val{font-family:'Fraunces',serif;font-size:28px;font-weight:600}
+.kpi-d{font-size:10px;font-weight:700;margin-top:3px;padding:2px 8px;border-radius:10px;display:inline-block}
+.kpi-d.up{background:var(--mint-bg);color:#059669}
+.kpi-d.dn{background:var(--coral-bg);color:var(--coral)}
+.kpi-d.fl{background:var(--amber-bg);color:var(--amber)}
+.sec{margin-bottom:44px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border-light)}
+.sec-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600}
+.badge{font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:4px 12px;border-radius:20px}
+.badge-purple{background:var(--purple-light);color:var(--purple-dark)}
+.badge-mint{background:var(--mint-bg);color:#059669}
+.badge-coral{background:var(--coral-bg);color:var(--coral)}
+.badge-sky{background:var(--sky-bg);color:#0284c7}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:140px 1fr 80px;gap:14px;align-items:center}
+.bar-lbl{font-size:13px;color:var(--text-soft);text-align:right;font-weight:600}
+.bar-track{height:28px;background:var(--bg-warm);border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px}
+.bar-fill.blankets{background:linear-gradient(90deg,var(--purple),var(--purple-dark))}
+.bar-fill.sleep{background:linear-gradient(90deg,var(--sky),#0284c7)}
+.bar-fill.access{background:linear-gradient(90deg,var(--coral),#e45448)}
+.bar-fill.licensed{background:linear-gradient(90deg,var(--amber),#d97706)}
+.bar-amt{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500}
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);font-weight:700;padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg-warm)}
+td{padding:12px 14px;border-bottom:1px solid var(--border-light);font-size:13px}
+tr:last-child td{border-bottom:none}
+.p-name{font-weight:700}
+.p-sub{font-size:10px;color:var(--text-muted)}
+.t-up{color:#059669;font-weight:700}
+.t-dn{color:var(--coral);font-weight:700}
+.t-fl{color:var(--text-muted)}
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.geo-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.geo-flag{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--purple);margin-bottom:4px}
+.geo-val{font-family:'Fraunces',serif;font-size:22px;font-weight:600}
+.geo-meta{font-size:10px;color:var(--text-muted);margin-top:2px}
+.alert{border-radius:16px;padding:22px;margin-bottom:12px;display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start}
+.alert-m{font-size:11px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.alert-t{font-weight:700;font-size:14px;margin-bottom:4px}
+.alert-b{font-size:12px;color:var(--text-soft);line-height:1.8}
+.alert-b strong{color:var(--text)}
+.alert-r{background:var(--coral-bg);border:1px solid rgba(249,112,102,0.15)}.alert-r .alert-m{background:var(--coral);color:#fff}
+.alert-o{background:var(--amber-bg);border:1px solid rgba(245,158,11,0.15)}.alert-o .alert-m{background:var(--amber);color:#fff}
+.alert-g{background:var(--mint-bg);border:1px solid rgba(52,211,153,0.15)}.alert-g .alert-m{background:#059669;color:#fff}
+.act{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:12px;display:grid;grid-template-columns:42px 1fr;gap:16px}
+.act-n{width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:700;flex-shrink:0}
+.act-title{font-weight:700;font-size:14px;margin-bottom:4px}
+.act-body{font-size:12px;color:var(--text-soft);line-height:1.8}
+.act-body strong{color:var(--text)}
+.act-tag{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--purple-light);color:var(--purple-dark);padding:3px 10px;border-radius:6px}
+.footer{text-align:center;padding:40px 0;border-top:2px solid var(--purple);margin-top:48px}
+.footer-val{font-family:'Fraunces',serif;font-size:38px;font-weight:600;color:var(--purple);margin:10px 0 8px}
+.footer p{font-size:12px;color:var(--text-muted);max-width:480px;margin:0 auto;line-height:1.7}
+.footer-cta{margin-top:24px;padding:22px;background:var(--purple-light);border:1px solid var(--purple-border);border-radius:16px;max-width:440px;margin-left:auto;margin-right:auto}
+.footer-cta h3{font-size:16px;margin-bottom:6px;color:var(--purple-dark)}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.bar-row{grid-template-columns:100px 1fr 64px}.geo-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand-bar">the oodie - weekly performance report - confidential</div>
+<div class="header">
+  <div class="logo">The Oodie</div>
+  <h1>Weekly <em>Performance</em> Report</h1>
+  <div class="period">7 Apr - 13 Apr 2026</div>
+</div>
+
+<div class="exec">
+  <h2>The Week at a Glance</h2>
+  <p>A solid winter ramp-up week with revenue hitting <strong>$286,400 across all regions</strong> - up 16.2% WoW as cooler weather drives demand across Australia and the UK simultaneously. The <strong>Hello Kitty Collection</strong> continues to outperform all licensed drops this year, now accounting for 18% of total revenue. However, <strong>AU fulfillment delays are creating a 4.2-star review trend</strong> (down from 4.6) - 23 negative reviews this week specifically mention shipping times. The mobile app is delivering strong results with a <strong>134% higher conversion rate than web</strong> and 37% higher AOV, but app install growth has slowed to +2.1% WoW (down from +6.8% last month). Push notification opt-in rate remains strong at 50.6%.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="kpi-label">Global Revenue</div><div class="kpi-val">$286,400</div><div class="kpi-d up">+16.2% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Orders</div><div class="kpi-val">3,820</div><div class="kpi-d up">+14.8% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">AOV</div><div class="kpi-val">$74.97</div><div class="kpi-d up">+1.2% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Sessions</div><div class="kpi-val">481K</div><div class="kpi-d up">+12.4% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Conversion</div><div class="kpi-val">0.79%</div><div class="kpi-d up">+0.04pts</div></div>
+  <div class="kpi"><div class="kpi-label">App Conv.</div><div class="kpi-val">1.85%</div><div class="kpi-d up">134% vs web</div></div>
+  <div class="kpi"><div class="kpi-label">Email Rev</div><div class="kpi-val">$54,400</div><div class="kpi-d up">19% of total</div></div>
+  <div class="kpi"><div class="kpi-label">Return Rate</div><div class="kpi-val">4.8%</div><div class="kpi-d dn">+0.6pts</div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Revenue by Category</div><span class="badge badge-purple">Licensed +28%</span></div>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lbl">Wearable Blankets</div><div class="bar-track"><div class="bar-fill blankets" style="width:72%;"></div></div><div class="bar-amt">$143,200</div></div>
+    <div class="bar-row"><div class="bar-lbl">Licensed Collabs</div><div class="bar-track"><div class="bar-fill licensed" style="width:36%;"></div></div><div class="bar-amt">$51,550</div></div>
+    <div class="bar-row"><div class="bar-lbl">Sleepwear + Robes</div><div class="bar-track"><div class="bar-fill sleep" style="width:24%;"></div></div><div class="bar-amt">$40,100</div></div>
+    <div class="bar-row"><div class="bar-lbl">Slippers + Footwear</div><div class="bar-track"><div class="bar-fill access" style="width:14%;"></div></div><div class="bar-amt">$28,640</div></div>
+    <div class="bar-row"><div class="bar-lbl">Kids</div><div class="bar-track"><div class="bar-fill blankets" style="width:10%;opacity:0.6;"></div></div><div class="bar-amt">$22,910</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Revenue by Region</div><span class="badge badge-sky">UK +24% WoW</span></div>
+  <div class="geo-grid">
+    <div class="geo-card"><div class="geo-flag">AUSTRALIA</div><div class="geo-val">$128,880</div><div class="geo-meta">45% of total - +12% WoW</div></div>
+    <div class="geo-card"><div class="geo-flag">UNITED KINGDOM</div><div class="geo-val">$80,190</div><div class="geo-meta">28% of total - +24% WoW</div></div>
+    <div class="geo-card"><div class="geo-flag">UNITED STATES</div><div class="geo-val">$48,690</div><div class="geo-meta">17% of total - +8% WoW</div></div>
+    <div class="geo-card"><div class="geo-flag">REST OF WORLD</div><div class="geo-val">$28,640</div><div class="geo-meta">10% of total - +14% WoW</div></div>
+  </div>
+  <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">UK growth is accelerating as autumn sets in across the northern hemisphere. This is the optimal window for UK-targeted Meta campaigns - the 4-week period before UK clocks change historically drives 32% of annual UK revenue.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Top Products</div><span class="badge badge-mint">Hello Kitty leading</span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Product</th><th>Category</th><th>Units</th><th>Revenue</th><th>WoW</th></tr></thead>
+    <tbody>
+      <tr><td><div class="p-name">Hello Kitty Oodie</div><div class="p-sub">Licensed - Sanrio Collab</div></td><td>Licensed</td><td>680</td><td>$51,000</td><td class="t-up">+32%</td></tr>
+      <tr><td><div class="p-name">Classic Black Oodie</div><div class="p-sub">Sherpa Fleece - Core Range</div></td><td>Blankets</td><td>520</td><td>$36,400</td><td class="t-fl">+1%</td></tr>
+      <tr><td><div class="p-name">Avocado Oodie</div><div class="p-sub">Flannel + Sherpa - Bestseller</div></td><td>Blankets</td><td>410</td><td>$28,700</td><td class="t-up">+8%</td></tr>
+      <tr><td><div class="p-name">Oodie Sleep Tee</div><div class="p-sub">Cotton Blend - New Category</div></td><td>Sleepwear</td><td>380</td><td>$15,200</td><td class="t-up">+44%</td></tr>
+      <tr><td><div class="p-name">Snoopy Oodie</div><div class="p-sub">Licensed - Peanuts Collab</div></td><td>Licensed</td><td>320</td><td>$24,000</td><td class="t-dn">-12%</td></tr>
+      <tr><td><div class="p-name">Oodie Slippers</div><div class="p-sub">Sherpa - Matching Sets</div></td><td>Footwear</td><td>440</td><td>$15,400</td><td class="t-up">+18%</td></tr>
+      <tr><td><div class="p-name">Kids Rainbow Oodie</div><div class="p-sub">Kids Range - Gift Category</div></td><td>Kids</td><td>290</td><td>$14,500</td><td class="t-up">+22%</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Channel Performance</div></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Channel</th><th>Sessions</th><th>Revenue</th><th>Conv.</th><th>ROAS</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:700;">Meta Ads (Global)</td><td>186,000</td><td>$88,780</td><td>0.62%</td><td style="color:#059669;font-weight:700;">3.2x</td></tr>
+      <tr><td style="font-weight:700;">Organic Search</td><td>112,000</td><td>$54,820</td><td>0.94%</td><td style="color:#059669;font-weight:700;">Free</td></tr>
+      <tr><td style="font-weight:700;">Email + SMS</td><td>48,600</td><td>$54,400</td><td>2.4%</td><td style="color:#059669;font-weight:700;">38.2x</td></tr>
+      <tr><td style="font-weight:700;">Mobile App</td><td>32,400</td><td>$42,800</td><td>1.85%</td><td style="color:#059669;font-weight:700;">Free</td></tr>
+      <tr><td style="font-weight:700;">Google Ads</td><td>62,000</td><td>$28,600</td><td>0.72%</td><td style="color:var(--amber);font-weight:700;">2.4x</td></tr>
+      <tr><td style="font-weight:700;">TikTok Ads</td><td>28,000</td><td>$11,200</td><td>0.48%</td><td style="color:var(--coral);font-weight:700;">1.6x</td></tr>
+      <tr><td style="font-weight:700;">Direct / Brand</td><td>12,000</td><td>$5,800</td><td>1.1%</td><td style="color:#059669;font-weight:700;">Free</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">Mobile app continues to be the highest-converting owned channel at 1.85% (134% above web). TikTok Ads are underperforming at 1.6x ROAS - consider shifting to organic TikTok content strategy, which drove stronger results for similar DTC brands this quarter.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Alerts</div></div>
+  <div class="alert alert-r"><div class="alert-m">!</div><div><div class="alert-t">AU Shipping Delays Driving Negative Reviews - 23 This Week</div><div class="alert-b">Average review score dropped from <strong>4.6 to 4.2 stars</strong> this week. 23 of 31 negative reviews specifically mention shipping delays or tracking issues. The Bleckmann fulfillment partnership appears to have a bottleneck in the AU warehouse. <strong>Immediate action needed</strong> - each 0.1-star drop in review score correlates to approximately 2.4% lower conversion rate. Estimated impact: <strong>$6,800-$9,200/week in lost conversions</strong>.</div></div></div>
+  <div class="alert alert-o"><div class="alert-m">!</div><div><div class="alert-t">TikTok Ads at 1.6x ROAS - Below 2.0x Target</div><div class="alert-b">TikTok paid spend of $7,000/week returning $11,200 in revenue. The creative is stale - the top-performing ad has been running for <strong>18 days without refresh</strong>. TikTok creative fatigue sets in at 10-14 days for DTC brands. Refresh with UGC-style unboxing content or pause and reallocate to <strong>Meta retargeting</strong> which runs at 4.8x ROAS.</div></div></div>
+  <div class="alert alert-o"><div class="alert-m">!</div><div><div class="alert-t">App Install Growth Slowing - +2.1% WoW (Was +6.8%)</div><div class="alert-b">The mobile website banner is still driving the majority of installs, but <strong>creative fatigue</strong> on the banner is likely. Test a new incentive: "Get 15% off your first app order" or an <strong>app-exclusive collab drop</strong> (similar to the Barbie launch strategy that drove 200K installs in 6 months).</div></div></div>
+  <div class="alert alert-g"><div class="alert-m">+</div><div><div class="alert-t">Sleep Tee Category Up 44% - New Revenue Stream Validating</div><div class="alert-b">The <strong>Oodie Sleep Tee</strong> is the fastest-growing product this week at +44% WoW. This validates the sleepwear category expansion beyond wearable blankets. Average Sleep Tee customer has a <strong>28% cross-purchase rate</strong> with the core Oodie blanket - strong cross-sell signal. Consider a "Sleep Bundle" (Sleep Tee + Slippers) at 20% discount to accelerate the category.</div></div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">This Week's Actions</div></div>
+  <div class="act"><div class="act-n">1</div><div><div class="act-title">Escalate AU Fulfillment Issue with Bleckmann</div><div class="act-body">23 negative shipping reviews in one week is a revenue-impacting event. Schedule an <strong>urgent call with Bleckmann AU operations</strong> to identify the bottleneck. In parallel, add a <strong>proactive shipping delay email</strong> via Klaviyo for any order not dispatched within 48 hours - this converts potential negative reviews into "we're on it" positive sentiment.</div><div class="act-tag">Est. Impact: Prevent $6,800-$9,200/week lost conversions - Priority: URGENT</div></div></div>
+  <div class="act"><div class="act-n">2</div><div><div class="act-title">Refresh TikTok Ad Creative - Current Set is 18 Days Old</div><div class="act-body">TikTok creative fatigue is real and measurable. Pull <strong>3-5 recent UGC unboxing videos</strong> from tagged content and test as new ad creative. If ROAS doesn't recover above 2.0x within 5 days, pause TikTok paid entirely and shift the $7K/week to <strong>Meta retargeting (4.8x ROAS)</strong>.</div><div class="act-tag">Est. Impact: +$4,200/week at same spend - Priority: HIGH</div></div></div>
+  <div class="act"><div class="act-n">3</div><div><div class="act-title">Launch UK-Specific Meta Campaign - Autumn Window</div><div class="act-body">UK revenue is up 24% WoW as autumn hits. This is the <strong>highest-leverage 4-week window for UK sales</strong>. Launch a dedicated UK campaign with localised creative (GBP pricing, UK delivery messaging, autumn/cozy positioning). Target: "wearable blanket UK", "cozy gift ideas", and lookalikes from UK customer list.</div><div class="act-tag">Est. Impact: +$12,000-$18,000 over 4 weeks - Priority: HIGH</div></div></div>
+  <div class="act"><div class="act-n">4</div><div><div class="act-title">Create "Sleep Bundle" - Sleep Tee + Slippers at 20% Off</div><div class="act-body">Sleep Tees are up 44% and have a 28% cross-purchase rate with Slippers. Bundle them as the <strong>"Oodie Sleep Bundle"</strong> at 20% off to accelerate the sleepwear category and lift AOV. Promote as an app-exclusive for the first 48 hours to drive app installs simultaneously.</div><div class="act-tag">Est. Impact: +$8,400/week new bundle revenue - Priority: MEDIUM</div></div></div>
+  <div class="act"><div class="act-n">5</div><div><div class="act-title">Test New App Install Banner - "15% Off First App Order"</div><div class="act-body">App install growth has slowed from +6.8% to +2.1% WoW. The current mobile web banner has been static for <strong>3+ months</strong>. A/B test a new banner with a direct discount incentive: "Download the app, get 15% off your first order." Given app customers convert at 134% higher rates, each new install is worth approximately <strong>$12.40 in incremental LTV</strong>.</div><div class="act-tag">Est. Impact: +3,000 installs/month - Priority: MEDIUM</div></div></div>
+</div>
+
+<div class="footer">
+  <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">Total Estimated Weekly Opportunity</div>
+  <div class="footer-val">$19,200 - $31,400</div>
+  <p>This report was built using publicly available data, product listings, and industry benchmarks. A report using your actual Shopify, Klaviyo, Tapcart, and ad platform data would be significantly more precise.</p>
+  <div class="footer-cta">
+    <h3>See this with your real numbers?</h3>
+    <p style="font-size:12px;color:var(--text-soft);line-height:1.7;">Two weeks of real reports, real data, zero commitment. We'll deliver your first report within 48 hours of connecting your store.</p>
+    <p style="margin-top:10px;font-size:12px;color:var(--purple);">Pulse Reports - hello@pulsereports.com.au</p>
+  </div>
+</div>
+</div>
+</body>
+</html>

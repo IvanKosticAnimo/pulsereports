@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>frank body - Weekly Performance Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111010;--surface:#1a1919;--surface-2:#222121;--border:#2e2c2c;--text:#f5f0eb;--text-soft:#b8afa4;--text-muted:#7a7269;--pink:#e8527a;--pink-light:#f9e0e8;--pink-dark:#c4345a;--pink-bg:rgba(232,82,122,0.08);--pink-border:rgba(232,82,122,0.2);--coffee:#c4956a;--coffee-bg:rgba(196,149,106,0.08);--green:#6ee7b7;--green-bg:rgba(110,231,183,0.08);--red:#f87171;--red-bg:rgba(248,113,113,0.08);--orange:#fbbf24;--orange-bg:rgba(251,191,36,0.08)}
+*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:920px;margin:0 auto;padding:0 28px}
+.brand-bar{background:var(--pink);color:#fff;text-align:center;padding:8px;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.header{padding:52px 0 36px;border-bottom:1px solid var(--border);margin-bottom:44px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.header h1{font-family:'Newsreader',serif;font-size:clamp(28px,4.5vw,42px);font-weight:400;line-height:1.15}
+.header h1 em{font-style:italic;color:var(--pink)}
+.header .period{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);background:var(--surface);padding:6px 14px;border-radius:8px;border:1px solid var(--border)}
+.exec{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:36px;border-left:3px solid var(--pink)}
+.exec h2{font-size:16px;font-weight:600;margin-bottom:10px;color:var(--pink)}
+.exec p{font-size:14px;color:var(--text-soft);line-height:1.85}
+.exec strong{color:var(--text)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:40px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.kpi-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;font-weight:600}
+.kpi-val{font-family:'Newsreader',serif;font-size:26px;font-weight:600}
+.kpi-d{font-size:10px;font-weight:600;margin-top:3px;padding:2px 6px;border-radius:6px;display:inline-block}
+.kpi-d.up{background:var(--green-bg);color:var(--green)}
+.kpi-d.dn{background:var(--red-bg);color:var(--red)}
+.kpi-d.fl{background:var(--orange-bg);color:var(--orange)}
+.sec{margin-bottom:44px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.sec-title{font-size:18px;font-weight:600}
+.badge{font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:16px}
+.badge-pink{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-orange{background:var(--orange-bg);color:var(--orange)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:grid;grid-template-columns:120px 1fr 68px;gap:12px;align-items:center}
+.bar-lbl{font-size:12px;color:var(--text-soft);text-align:right;font-weight:500}
+.bar-track{height:24px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--pink),var(--pink-dark))}
+.bar-fill.coffee{background:linear-gradient(90deg,var(--coffee),#a07040)}
+.bar-fill.green{background:linear-gradient(90deg,var(--green),#34d399)}
+.bar-amt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-soft)}
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);font-weight:600;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface-2)}
+td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:13px}
+tr:last-child td{border-bottom:none}
+.p-name{font-weight:600}
+.p-sub{font-size:10px;color:var(--text-muted)}
+.t-up{color:var(--green);font-weight:600}
+.t-dn{color:var(--red);font-weight:600}
+.t-fl{color:var(--text-muted)}
+.alert{border-radius:12px;padding:20px;margin-bottom:12px;display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start}
+.alert-m{font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.alert-t{font-weight:600;font-size:13px;margin-bottom:4px}
+.alert-b{font-size:12px;color:var(--text-soft);line-height:1.8}
+.alert-b strong{color:var(--text)}
+.alert-r{background:var(--red-bg);border:1px solid rgba(248,113,113,0.12)}.alert-r .alert-m{background:var(--red);color:var(--bg)}
+.alert-o{background:var(--orange-bg);border:1px solid rgba(251,191,36,0.12)}.alert-o .alert-m{background:var(--orange);color:var(--bg)}
+.alert-g{background:var(--green-bg);border:1px solid rgba(110,231,183,0.12)}.alert-g .alert-m{background:var(--green);color:var(--bg)}
+.act{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;display:grid;grid-template-columns:38px 1fr;gap:16px}
+.act-n{width:32px;height:32px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.act-title{font-weight:600;font-size:13px;margin-bottom:4px}
+.act-body{font-size:12px;color:var(--text-soft);line-height:1.8}
+.act-body strong{color:var(--text)}
+.act-tag{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--pink-bg);color:var(--pink);padding:3px 8px;border-radius:4px;border:1px solid var(--pink-border)}
+.footer{text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:48px}
+.footer-val{font-family:'Newsreader',serif;font-size:36px;font-weight:600;color:var(--pink);margin:10px 0 8px}
+.footer p{font-size:12px;color:var(--text-muted);max-width:480px;margin:0 auto;line-height:1.7}
+.footer-cta{margin-top:24px;padding:20px;background:var(--surface);border:1px solid var(--pink-border);border-radius:12px;max-width:440px;margin-left:auto;margin-right:auto}
+.footer-cta h3{font-size:15px;margin-bottom:6px}
+.footer-cta p{font-size:12px;color:var(--text-soft)}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.bar-row{grid-template-columns:80px 1fr 56px}.header{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="brand-bar">frank body - weekly performance report - confidential</div>
+<div class="container">
+<div class="header">
+  <div><h1>Weekly <em>Performance</em> Report</h1><p style="font-size:13px;color:var(--text-muted);margin-top:6px;">frankbody.com - Beauty and Body Care</p></div>
+  <div class="period">7 Apr - 13 Apr 2026</div>
+</div>
+
+<div class="exec">
+  <h2>The Week at a Glance</h2>
+  <p>Revenue hit <strong>$94,200</strong> this week - up 8.6% WoW - driven primarily by the <strong>Glycolic Body Scrub</strong> continuing its viral TikTok run and a strong Klaviyo campaign promoting the Everyday Clearing range. The <strong>Original Coffee Scrub</strong> remains your anchor SKU with consistent week-over-week performance. However, <strong>Meta Ads ROAS dropped to 2.1x</strong> from 3.4x last week - the broad campaign targeting "skincare Australia" is diluting performance. Meanwhile, the <strong>Niacinamide Body Scrub</strong> is trending +52% WoW - a signal to increase content and inventory for this SKU before it stocks out. UGC content tagged #thefrankeffect generated 1,840 new posts this week, your strongest organic week since January.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="kpi-label">Revenue</div><div class="kpi-val">$94,200</div><div class="kpi-d up">+8.6% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Orders</div><div class="kpi-val">2,140</div><div class="kpi-d up">+11.2% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">AOV</div><div class="kpi-val">$44.02</div><div class="kpi-d dn">-2.3% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Sessions</div><div class="kpi-val">128K</div><div class="kpi-d up">+14.8% WoW</div></div>
+  <div class="kpi"><div class="kpi-label">Conversion</div><div class="kpi-val">1.67%</div><div class="kpi-d dn">-0.08pts</div></div>
+  <div class="kpi"><div class="kpi-label">Cart Abandon</div><div class="kpi-val">68.4%</div><div class="kpi-d fl">+1.2pts</div></div>
+  <div class="kpi"><div class="kpi-label">Email Rev</div><div class="kpi-val">$22,610</div><div class="kpi-d up">24% of total</div></div>
+  <div class="kpi"><div class="kpi-label">Return Rate</div><div class="kpi-val">2.1%</div><div class="kpi-d up">-0.3pts</div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Revenue by Category</div><span class="badge badge-pink">Body Scrubs +14%</span></div>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lbl">Body Scrubs</div><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div><div class="bar-amt">$34,800</div></div>
+    <div class="bar-row"><div class="bar-lbl">Body Wash</div><div class="bar-track"><div class="bar-fill coffee" style="width:38%;"></div></div><div class="bar-amt">$18,400</div></div>
+    <div class="bar-row"><div class="bar-lbl">Body Lotion</div><div class="bar-track"><div class="bar-fill coffee" style="width:28%;"></div></div><div class="bar-amt">$13,560</div></div>
+    <div class="bar-row"><div class="bar-lbl">Face Care</div><div class="bar-track"><div class="bar-fill green" style="width:20%;"></div></div><div class="bar-amt">$9,680</div></div>
+    <div class="bar-row"><div class="bar-lbl">Kits + Bundles</div><div class="bar-track"><div class="bar-fill" style="width:18%;"></div></div><div class="bar-amt">$8,920</div></div>
+    <div class="bar-row"><div class="bar-lbl">Hair + Other</div><div class="bar-track"><div class="bar-fill coffee" style="width:12%;"></div></div><div class="bar-amt">$8,840</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Top Products</div><span class="badge badge-green">Niacinamide +52%</span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Product</th><th>Category</th><th>Units</th><th>Revenue</th><th>WoW</th></tr></thead>
+    <tbody>
+      <tr><td><div class="p-name">Glycolic Body Scrub</div><div class="p-sub">Glycolic + Lactic Acid - Breakout Buster</div></td><td>Body Scrubs</td><td>620</td><td>$12,400</td><td class="t-up">+22%</td></tr>
+      <tr><td><div class="p-name">Original Coffee Scrub</div><div class="p-sub">Robusta Coffee + Sea Salt - Cult Classic</div></td><td>Body Scrubs</td><td>540</td><td>$10,260</td><td class="t-fl">+2%</td></tr>
+      <tr><td><div class="p-name">Niacinamide Body Scrub</div><div class="p-sub">Niacinamide - Calm + Repair</div></td><td>Body Scrubs</td><td>380</td><td>$7,220</td><td class="t-up">+52%</td></tr>
+      <tr><td><div class="p-name">Everyday Clearing Body Wash</div><div class="p-sub">Salicylic Acid - Daily Anti-Acne</div></td><td>Body Wash</td><td>410</td><td>$5,330</td><td class="t-up">+18%</td></tr>
+      <tr><td><div class="p-name">Acid Heroes Kit</div><div class="p-sub">KP + Body Acne Routine Bundle</div></td><td>Kits</td><td>180</td><td>$8,820</td><td class="t-up">+12%</td></tr>
+      <tr><td><div class="p-name">Original Face Scrub</div><div class="p-sub">Coffee + Almond Oil - Face Exfoliant</div></td><td>Face Care</td><td>290</td><td>$4,640</td><td class="t-dn">-8%</td></tr>
+      <tr><td><div class="p-name">Hyaluronic Acid Body Serum</div><div class="p-sub">Hyaluronic Acid + Aloe - Deep Hydration</div></td><td>Body Care</td><td>220</td><td>$6,380</td><td class="t-up">+14%</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Channel Performance</div></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Channel</th><th>Sessions</th><th>Revenue</th><th>Conv.</th><th>ROAS</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:600;">Organic Search</td><td>38,400</td><td>$26,800</td><td>2.2%</td><td style="color:var(--green);font-weight:600;">Free</td></tr>
+      <tr><td style="font-weight:600;">Klaviyo (Email + SMS)</td><td>18,200</td><td>$22,610</td><td>3.8%</td><td style="color:var(--green);font-weight:600;">42.6x</td></tr>
+      <tr><td style="font-weight:600;">Instagram / Meta Ads</td><td>42,600</td><td>$19,840</td><td>1.1%</td><td style="color:var(--orange);font-weight:600;">2.1x</td></tr>
+      <tr><td style="font-weight:600;">TikTok (Organic)</td><td>16,800</td><td>$11,420</td><td>1.4%</td><td style="color:var(--green);font-weight:600;">Free</td></tr>
+      <tr><td style="font-weight:600;">Google Ads</td><td>8,400</td><td>$8,920</td><td>1.8%</td><td style="color:var(--green);font-weight:600;">3.6x</td></tr>
+      <tr><td style="font-weight:600;">Direct / Brand</td><td>3,600</td><td>$4,610</td><td>3.1%</td><td style="color:var(--green);font-weight:600;">Free</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">Meta Ads ROAS dropped from 3.4x to 2.1x - the broad "skincare Australia" campaign is underperforming. TikTok organic traffic is up 38% WoW driven by #thefrankeffect UGC. Consider shifting $2K/week from broad Meta to TikTok Spark Ads amplifying top-performing UGC.</p>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">Alerts</div></div>
+  <div class="alert alert-r"><div class="alert-m">!</div><div><div class="alert-t">Meta Ads ROAS Dropped 38% - Broad Campaigns Diluting Performance</div><div class="alert-b">ROAS fell from <strong>3.4x to 2.1x</strong> week-on-week. The "skincare Australia" broad targeting is bringing in low-intent traffic (bounce rate 72% vs 48% site average). <strong>Pause broad campaigns and reallocate to retargeting and lookalike audiences</strong> built from your highest-LTV customer segment. Estimated recovery: <strong>$3,800-$5,200/week</strong> in wasted spend.</div></div></div>
+  <div class="alert alert-o"><div class="alert-m">!</div><div><div class="alert-t">AOV Down 2.3% - Bundle Attach Rate Declining</div><div class="alert-b">Average order value dropped from $45.06 to $44.02. The Acid Heroes Kit is still selling well, but <strong>single-product orders increased to 64% of total</strong> (up from 58%). Consider adding a post-add-to-cart upsell - "Complete the routine" with the matching body wash or lotion at 15% off.</div></div></div>
+  <div class="alert alert-g"><div class="alert-m">+</div><div><div class="alert-t">#thefrankeffect UGC Strongest Week Since January - 1,840 New Posts</div><div class="alert-b">The Glycolic Body Scrub is driving a new wave of TikTok UGC content, particularly <strong>"strawberry skin" and KP transformation videos</strong>. These posts are converting at 1.4% organically - higher than your paid TikTok campaigns (0.9%). <strong>Amplify the top 5 performing UGC posts as TikTok Spark Ads</strong> to capitalise on this momentum.</div></div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><div class="sec-title">This Week's Actions</div></div>
+  <div class="act"><div class="act-n">1</div><div><div class="act-title">Pause Meta Broad Campaigns - Reallocate to Retargeting</div><div class="act-body">The "skincare Australia" broad campaign is burning $9,400/week at 2.1x ROAS. Pause it and shift budget to <strong>retargeting site visitors (7-day window)</strong> and <strong>lookalike audiences</strong> built from repeat purchasers. Your retargeting campaigns historically run at 5.8x ROAS.</div><div class="act-tag">Est. Impact: +$3,800-$5,200/week saved - Priority: URGENT</div></div></div>
+  <div class="act"><div class="act-n">2</div><div><div class="act-title">Amplify Top 5 UGC Posts as TikTok Spark Ads</div><div class="act-body">Identify the 5 highest-engagement #thefrankeffect posts from this week (focus on KP/strawberry skin transformation content). Request creator permission and run as <strong>Spark Ads with $200/day budget</strong>. Organic UGC converts at 1.4% vs paid TikTok at 0.9% - Spark Ads combine both.</div><div class="act-tag">Est. Impact: +$4,600/week new revenue - Priority: HIGH</div></div></div>
+  <div class="act"><div class="act-n">3</div><div><div class="act-title">Add Post-Cart "Complete the Routine" Upsell</div><div class="act-body">64% of orders are single-product. After a customer adds a scrub to cart, show a <strong>"Complete Your Routine" offer</strong>: matching body wash + lotion at 15% bundle discount. Target: reduce single-product orders to 55% and lift AOV back above $48.</div><div class="act-tag">Est. Impact: +$3,200/week AOV lift - Priority: HIGH</div></div></div>
+  <div class="act"><div class="act-n">4</div><div><div class="act-title">Increase Niacinamide Body Scrub Inventory - Stock-Out Risk in 9 Days</div><div class="act-body">Niacinamide Body Scrub is up <strong>52% WoW</strong> with accelerating demand. At current velocity (380 units/week), projected stock-out in <strong>approximately 9 days</strong>. Place an expedited reorder and set up Klaviyo "Back in Stock" flow using your existing integration.</div><div class="act-tag">Est. Impact: Prevent $7,200+/week lost revenue - Priority: HIGH</div></div></div>
+  <div class="act"><div class="act-n">5</div><div><div class="act-title">Test "Subscribe + Save" on Everyday Clearing Range</div><div class="act-body">The Everyday Clearing Body Wash is a <strong>daily-use product with natural replenishment cycles</strong> (approximately 6-8 weeks). Launch a "Subscribe + Save 15%" option on Clearing range products to build recurring revenue. Beauty subscription conversion benchmarks: 8-12% of eligible product page visitors.</div><div class="act-tag">Est. Impact: +$2,800/month recurring - Priority: MEDIUM</div></div></div>
+</div>
+
+<div class="footer">
+  <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">Total Estimated Weekly Opportunity</div>
+  <div class="footer-val">$14,600 - $20,200</div>
+  <p>This report was built using publicly available data, product listings, and industry benchmarks. A report using your actual Shopify, Klaviyo, and ad platform data would be significantly more precise.</p>
+  <div class="footer-cta">
+    <h3>See this with your real numbers?</h3>
+    <p>Two weeks of real reports, real data, zero commitment. We'll deliver your first report within 48 hours of connecting your store.</p>
+    <p style="margin-top:10px;color:var(--pink);">Pulse Reports - hello@pulsereports.com.au</p>
+  </div>
+</div>
+</div>
+</body>
+</html>
