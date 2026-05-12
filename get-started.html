@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started - Pulse Reporting</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090b;--surface:#141418;--surface-2:#1c1c22;--border:#27272a;--text:#fafafa;--text-soft:#a1a1aa;--text-muted:#71717a;--pulse:#6ee7b7;--pulse-dark:#059669;--pulse-glow:rgba(110,231,183,0.06);--pulse-border:rgba(110,231,183,0.15)}
+*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+
+.nav{padding:20px 0;border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400}
+.nav-logo span{color:var(--pulse)}
+.nav-back{font-size:13px;color:var(--text-soft);transition:color 0.2s}
+.nav-back:hover{color:var(--text)}
+
+.page{max-width:640px;margin:0 auto;padding:80px 24px;flex:1}
+.page h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,40px);font-weight:400;margin-bottom:10px;line-height:1.2}
+.page h1 em{font-style:italic;color:var(--pulse)}
+.page-sub{font-size:15px;color:var(--text-soft);margin-bottom:40px;line-height:1.7}
+
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:32px}
+
+.field{margin-bottom:20px}
+.field label{display:block;font-size:12px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Geist',system-ui,sans-serif;font-size:14px;transition:border-color 0.2s;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pulse)}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-muted)}
+.field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2371717a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field select option{background:var(--surface-2);color:var(--text)}
+.field textarea{resize:vertical;min-height:80px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.btn-submit{width:100%;padding:14px;background:var(--pulse);color:var(--bg);border:none;border-radius:10px;font-family:'Geist',system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.2s;margin-top:8px}
+.btn-submit:hover{opacity:0.9}
+
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.trust-item{text-align:center;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.trust-val{font-family:'Instrument Serif',serif;font-size:22px;color:var(--pulse);margin-bottom:2px}
+.trust-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px}
+
+.steps{margin-top:40px}
+.steps h2{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;margin-bottom:20px}
+.step-list{display:flex;flex-direction:column;gap:14px}
+.step-item{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.step-num{width:30px;height:30px;border-radius:50%;border:1px solid var(--pulse-border);color:var(--pulse);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.step-text{font-size:14px;color:var(--text-soft);line-height:1.6}
+.step-text strong{color:var(--text)}
+
+.footer{border-top:1px solid var(--border);padding:24px 0;text-align:center}
+.footer p{font-size:12px;color:var(--text-muted)}
+
+.success-msg{display:none;text-align:center;padding:40px 20px}
+.success-msg h2{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:12px;color:var(--pulse)}
+.success-msg p{font-size:15px;color:var(--text-soft);line-height:1.7}
+
+@media(max-width:600px){
+  .field-row{grid-template-columns:1fr}
+  .trust{grid-template-columns:1fr}
+  .page{padding:48px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nav-logo">pulse<span>.</span></a>
+  <a href="index.html" class="nav-back">Back to home</a>
+</div></nav>
+
+<div class="page">
+
+  <h1>Start your free <em>2-week trial</em></h1>
+  <p class="page-sub">Fill in your details below and we'll have your first weekly performance report delivered within 48 hours. No credit card required. No contract. Just two weeks of real reports with your real data.</p>
+
+  <div class="trust">
+    <div class="trust-item"><div class="trust-val">48 hrs</div><div class="trust-label">First report</div></div>
+    <div class="trust-item"><div class="trust-val">$0</div><div class="trust-label">To start</div></div>
+    <div class="trust-item"><div class="trust-val">0</div><div class="trust-label">Lock-in</div></div>
+  </div>
+
+  <div id="form-container">
+    <div class="form-card">
+      <form id="signup-form" action="https://formsubmit.co/ivan@pulsereporting.com.au" method="POST">
+        <input type="hidden" name="_subject" value="New Pulse Reporting Trial Signup">
+        <input type="hidden" name="_next" value="">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="field-row">
+          <div class="field">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="field">
+            <label>Your Role</label>
+            <input type="text" name="role" placeholder="Founder, Marketing Manager, etc.">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="jane@yourstore.com" required>
+        </div>
+
+        <div class="field">
+          <label>Shopify Store URL</label>
+          <input type="url" name="store_url" placeholder="https://yourstore.com" required>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Monthly Revenue (approx.)</label>
+            <select name="revenue" required>
+              <option value="" disabled selected>Select range</option>
+              <option value="Under $30K">Under $30K/month</option>
+              <option value="$30K-$60K">$30K - $60K/month</option>
+              <option value="$60K-$100K">$60K - $100K/month</option>
+              <option value="$100K-$250K">$100K - $250K/month</option>
+              <option value="$250K+">$250K+/month</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>How did you find us?</label>
+            <select name="source">
+              <option value="" disabled selected>Select one</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Google">Google Search</option>
+              <option value="Referral">Referral</option>
+              <option value="Sample Report">Saw a sample report</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>What tools do you currently use? (optional)</label>
+          <input type="text" name="tools" placeholder="Klaviyo, Google Analytics, Meta Ads, etc.">
+        </div>
+
+        <div class="field">
+          <label>Anything specific you want tracked? (optional)</label>
+          <textarea name="notes" placeholder="e.g. We just launched a new collection and want to track its performance..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Start My Free Trial</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="success-msg" class="success-msg">
+    <h2>You're in.</h2>
+    <p>Thanks for signing up. Ivan will be in touch within 24 hours to get your Shopify store connected. Your first weekly report will land in your inbox within 48 hours of setup.</p>
+    <p style="margin-top:16px;color:var(--text-muted);font-size:13px;">Questions? Email ivan@pulsereporting.com.au</p>
+  </div>
+
+  <div class="steps">
+    <h2>What happens next?</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>We'll email you within 24 hours</strong> to introduce ourselves and request read-only staff access to your Shopify admin. Takes 2 minutes on your end.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Your first report arrives within 48 hours</strong> of connecting your store. It covers the previous 7 days of performance data.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Your second report arrives the following Monday.</strong> After two weeks, we'll have a quick chat about whether it's useful and which tier fits.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>No credit card, no auto-charge.</strong> If you want to continue after the trial, we'll send you a simple payment link. If not, no hard feelings.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>Pulse Reporting - Melbourne, Australia - ivan@pulsereporting.com.au</p>
+</footer>
+
+<script>
+const form = document.getElementById('signup-form');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const data = new FormData(form);
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(response) {
+    if (response.ok) {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    } else {
+      alert('Something went wrong. Please email ivan@pulsereporting.com.au directly.');
+    }
+  }).catch(function() {
+    alert('Something went wrong. Please email ivan@pulsereporting.com.au directly.');
+  });
+});
+</script>
+</body>
+</html>
